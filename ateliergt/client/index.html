@@ -1,0 +1,1881 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atelier — фабрика мягкой мебели</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@300;400;500;600&family=Parisienne&display=swap');
+
+:root{
+  --cream:#f4f1e9;
+  --paper:#f8f6f0;
+  --ink:#27231e;
+  --muted:#7c766c;
+  --gold:#b39a6b;
+  --line:#ded7c9;
+  --dark:#29251f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
+body{
+  margin:0;
+  background:#ebe8e1;
+  color:var(--ink);
+  font-family:Manrope,Arial,sans-serif;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.site{
+  width:min(1440px,100%);
+  margin:auto;
+  background:var(--cream);
+  min-height:100vh;
+  overflow:hidden;
+}
+
+/* верхний функциональный header */
+.topbar{
+  height:31px;
+  background:#2b2823;
+  color:#eee9df;
+  font-size:8px;
+  letter-spacing:.08em;
+}
+.topbar-inner{
+  width:min(1320px,calc(100% - 40px));
+  height:100%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.topbar a{
+  color:#d8bd8c;
+  border-bottom:1px solid rgba(216,189,140,.45);
+  padding-bottom:2px;
+}
+.real-header{
+  transition:box-shadow .25s;
+  position:sticky;
+  top:0;
+  z-index:80;
+  background:rgba(248,246,240,.96);
+  border-bottom:1px solid #ddd6c8;
+  backdrop-filter:blur(14px);
+}
+.real-header.shadow{box-shadow:0 8px 25px rgba(35,31,25,.07)}
+.real-header-inner{
+  width:min(1320px,calc(100% - 40px));
+  height:76px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+}
+.real-logo{
+  font-family:"Cormorant Garamond",serif;
+  font-size:27px;
+  line-height:.75;
+  white-space:nowrap;
+}
+.real-logo small{
+  display:block;
+  font-family:Manrope,sans-serif;
+  font-size:7px;
+  letter-spacing:.23em;
+  text-transform:uppercase;
+  margin-top:7px;
+  color:#9d8a68;
+}
+.real-nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:27px;
+  flex:1;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+}
+.real-nav>a,.nav-trigger{
+  color:#454039;
+  transition:.2s;
+}
+.real-nav>a:hover,.nav-trigger:hover{color:#aa8b59}
+.nav-dropdown{position:relative}
+.nav-trigger{
+  border:0;
+  background:none;
+  padding:12px 0;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+}
+.nav-trigger span{color:#a98a5c;margin-left:4px}
+.dropdown-menu{
+  position:absolute;
+  top:38px;
+  left:-15px;
+  min-width:190px;
+  padding:10px;
+  background:#f8f6f0;
+  border:1px solid #ded7c9;
+  box-shadow:0 15px 35px rgba(35,31,25,.12);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(8px);
+  transition:.22s;
+}
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:none;
+}
+.dropdown-menu a{
+  display:block;
+  padding:10px 9px;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.dropdown-menu a:hover{background:#eee9df;color:#a98a5c}
+.real-actions{
+  display:flex;
+  align-items:center;
+  gap:17px;
+  white-space:nowrap;
+}
+.header-phone{
+  font-size:9px;
+  color:#514c44;
+}
+.header-cart{
+  border:0;
+  border-bottom:1px solid #bda77c;
+  background:none;
+  padding:4px 0;
+  font-size:9px;
+  color:#514c44;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.header-cart span{
+  display:inline-grid;
+  place-items:center;
+  min-width:16px;
+  height:16px;
+  margin-left:5px;
+  padding:0 4px;
+  border-radius:20px;
+  background:#ad9161;
+  color:#fff;
+  font-size:8px;
+}
+.header-menu{
+  width:25px;
+  height:22px;
+  border:0;
+  background:none;
+  padding:2px 0;
+  display:grid;
+  align-content:center;
+  gap:5px;
+  position:relative;
+  will-change:transform;
+  backface-visibility:hidden;
+  transition:transform .45s cubic-bezier(.22,.61,.36,1);
+}
+.header-menu i{
+  display:block;
+  height:1px;
+  background:#39352f;
+  width:100%;
+  transform-origin:center;
+  transition:transform .45s cubic-bezier(.22,.61,.36,1),opacity .24s ease,background-color .24s ease;
+}
+.header-menu.active i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.header-menu.active i:nth-child(2){opacity:0}
+.header-menu.active i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-nav{
+  display:block;
+  border-top:1px solid #ded7c9;
+  background:#f8f6f0;
+  padding:0 20px;
+  max-height:0;
+  opacity:0;
+  visibility:hidden;
+  overflow:hidden;
+  transform:translate3d(0,-10px,0);
+  will-change:max-height,opacity,transform;
+  transition:max-height .48s cubic-bezier(.22,.61,.36,1),opacity .3s ease,transform .48s cubic-bezier(.22,.61,.36,1),padding .48s cubic-bezier(.22,.61,.36,1),visibility 0s linear .48s;
+}
+.mobile-nav a{
+  display:block;
+  padding:13px 0;
+  border-bottom:1px solid #e3ddd1;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.mobile-nav.open{
+  max-height:460px;
+  opacity:1;
+  visibility:visible;
+  transform:translate3d(0,0,0);
+  padding:10px 20px 18px;
+  transition-delay:0s;
+}
+
+/* верхняя часть как в референсе */
+.instagram{
+  padding:22px 28px 11px;
+  text-align:center;
+  background:var(--cream);
+  border-bottom:1px solid rgba(150,140,120,.16);
+}
+.instagram-title{
+  font-family:"Cormorant Garamond",serif;
+  font-size:34px;
+  line-height:1;
+  font-weight:400;
+}
+.instagram-handle{
+  margin-top:5px;
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:.06em;
+}
+
+.main-nav{
+  display:none;
+  position:absolute;
+  top:78px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+  width:min(1280px,calc(100% - 50px));
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:#fff;
+  pointer-events:none;
+}
+.logo{
+  font-family:"Cormorant Garamond",serif;
+  font-size:21px;
+  pointer-events:auto;
+  text-shadow:0 1px 8px rgba(0,0,0,.3);
+}
+.logo small{
+  display:block;
+  font-family:Manrope,sans-serif;
+  font-size:7px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  margin-top:-2px;
+}
+.nav{
+  display:flex;
+  gap:28px;
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  pointer-events:auto;
+}
+.nav a{opacity:.95;transition:.25s}
+.nav a:hover{color:#e1c796}
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  font-size:9px;
+  pointer-events:auto;
+}
+.phone{white-space:nowrap}
+.menu{
+  width:25px;height:20px;border:0;background:none;padding:0;display:grid;align-content:center;gap:5px;
+}
+.menu span{height:1px;background:#fff;width:100%;display:block}
+
+.featured{
+  position:relative;
+  padding:0 60px;
+}
+.featured-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  height:570px;
+}
+.feature{
+  position:relative;
+  overflow:hidden;
+  min-width:0;
+}
+.feature img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(.72);
+  transition:transform .8s ease,filter .5s ease;
+}
+.feature:hover img{
+  transform:scale(1.035);
+  filter:saturate(.85) brightness(.78);
+}
+.feature:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(12,10,8,.65),transparent 42%);
+  pointer-events:none;
+}
+.feature-info{
+  position:absolute;
+  z-index:2;
+  left:25px;
+  right:20px;
+  bottom:25px;
+  color:white;
+}
+.feature-info .type{
+  display:block;
+  font-family:"Cormorant Garamond",serif;
+  font-size:15px;
+  margin-bottom:0;
+}
+.feature-info h3{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-weight:400;
+  font-size:27px;
+  line-height:1.05;
+}
+.feature-info button{
+  margin-top:9px;
+  background:none;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.65);
+  padding:0 0 3px;
+  color:#fff;
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+}
+
+/* главный блок снизу трёх фото */
+.intro{
+  text-align:center;
+  padding:72px 30px 85px;
+  background:
+    linear-gradient(rgba(248,246,240,.88),rgba(248,246,240,.88)),
+    repeating-linear-gradient(90deg,transparent 0,transparent 75px,rgba(150,140,120,.06) 76px,transparent 77px);
+}
+.intro-kicker{
+  font-size:8px;
+  letter-spacing:.27em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:16px;
+}
+.intro h1{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-weight:400;
+  font-size:clamp(48px,6vw,79px);
+  line-height:.83;
+  letter-spacing:-.035em;
+}
+.intro-script{
+  margin:8px 0 25px;
+  font-family:Parisienne,cursive;
+  color:var(--gold);
+  font-size:31px;
+  transform:rotate(-4deg);
+}
+.intro p{
+  width:min(550px,100%);
+  margin:0 auto;
+  color:#777168;
+  font-size:11px;
+  line-height:1.75;
+}
+.intro-links{
+  display:flex;
+  justify-content:center;
+  gap:42px;
+  margin-top:25px;
+  flex-wrap:wrap;
+}
+.gold-link{
+  color:#a88e60;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  border-bottom:1px solid #c9b58f;
+  padding-bottom:6px;
+}
+
+/* каталог */
+.catalog{
+  padding:95px 60px 105px;
+  background:var(--paper);
+}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:30px;
+  margin-bottom:34px;
+}
+.section-head h2{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:54px;
+  line-height:.9;
+  font-weight:400;
+}
+.section-head p{
+  max-width:390px;
+  margin:0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.7;
+}
+.filters{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+.filter{
+  border:1px solid var(--line);
+  background:transparent;
+  padding:9px 14px;
+  color:var(--muted);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  transition:.25s;
+}
+.filter:hover,.filter.active{
+  background:var(--dark);
+  color:#fff;
+  border-color:var(--dark);
+}
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px 10px;
+}
+.product{
+  background:#f0ede5;
+}
+.product-image{
+  aspect-ratio:3/4;
+  overflow:hidden;
+  position:relative;
+}
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.76) contrast(.97);
+  transition:.6s;
+}
+.product:hover img{transform:scale(1.035);filter:saturate(.88) contrast(1)}
+.product-details{padding:14px 14px 17px}
+.category{
+  color:var(--gold);
+  font-size:8px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.product h3{
+  margin:4px 0 9px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:25px;
+  font-weight:500;
+}
+.product-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.price{font-size:10px}
+.add{
+  border:1px solid var(--line);
+  background:transparent;
+  padding:8px 10px;
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.add:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* индивидуальный проект */
+.project{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:590px;
+  background:#e6ded1;
+  color:var(--ink);
+  border-top:1px solid #d1c4b1;
+}
+.project-copy{
+  position:relative;
+  overflow:hidden;
+  padding:80px 8%;
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+  background:#e6ded1;
+}
+.project-copy::after{
+  content:"01";
+  position:absolute;
+  right:7%;
+  bottom:-.12em;
+  color:rgba(169,138,92,.16);
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(130px,18vw,280px);
+  line-height:.7;
+  pointer-events:none;
+}
+.project-copy > *{
+  position:relative;
+  z-index:1;
+}
+.project-copy .intro-kicker{margin:0 0 18px;text-align:left}
+.project h2{
+  margin:0 0 20px;
+  font-family:"Cormorant Garamond",serif;
+  font-weight:400;
+  font-size:65px;
+  line-height:.88;
+  color:var(--ink);
+}
+.project p{
+  max-width:480px;
+  color:#665f56;
+  font-size:12px;
+  line-height:1.8;
+}
+.project button{
+  align-self:flex-start;
+  margin-top:15px;
+  background:transparent;
+  border:1px solid #b39768;
+  color:var(--ink);
+  padding:14px 19px;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+.project button:hover{background:var(--dark);color:#fff}
+.project-image{min-height:590px;overflow:hidden}
+.project-image{background:#d6c7b3}
+.project-image img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(.97)}
+
+/* футер */
+footer{
+  background:var(--paper);
+  padding:55px 60px 25px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr 1fr;
+  gap:35px;
+}
+.footer-logo{
+  font-family:"Cormorant Garamond",serif;
+  font-size:34px;
+}
+footer h4{
+  margin:0 0 13px;
+  font-size:9px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+footer a,footer p{
+  display:block;
+  margin:0;
+  color:var(--muted);
+  font-size:10px;
+  line-height:2.1;
+}
+.copyright{
+  border-top:1px solid var(--line);
+  margin-top:38px;
+  padding-top:16px;
+  color:#a29c92;
+  font-size:8px;
+}
+
+/* модалки */
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(22,19,15,.55);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .34s ease,visibility 0s linear .34s;
+}
+.overlay.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition-delay:0s;
+}
+.modal{
+  position:relative;
+  width:min(720px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--paper);
+  padding:38px;
+  opacity:0;
+  transform:translate3d(0,16px,0) scale(.985);
+  will-change:opacity,transform;
+  transition:opacity .34s cubic-bezier(.22,.61,.36,1),transform .42s cubic-bezier(.22,.61,.36,1);
+}
+.overlay.open .modal{opacity:1;transform:translate3d(0,0,0) scale(1)}
+.close{
+  position:absolute;
+  right:14px;
+  top:10px;
+  border:0;
+  background:none;
+  color:var(--muted);
+  font-size:25px;
+  transition:color .2s ease,transform .35s cubic-bezier(.22,.61,.36,1);
+}
+.close:hover{color:var(--ink);transform:rotate(90deg)}
+.modal h2{
+  margin:0 0 17px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:42px;
+  font-weight:400;
+}
+.form{display:grid;gap:10px}
+.form input,.form textarea{
+  width:100%;
+  border:1px solid var(--line);
+  background:#fffdf8;
+  padding:13px;
+  outline:none;
+  font-family:Manrope,Arial,sans-serif;
+  font-size:12px;
+  line-height:1.5;
+  color:var(--ink);
+}
+.form textarea{height:115px;resize:vertical}
+.form input::placeholder,.form textarea::placeholder{color:#9b948a;opacity:1}
+.form button{
+  background:var(--dark);
+  color:white;
+  border:0;
+  padding:14px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-size:9px;
+}
+.toast{
+  position:fixed;
+  z-index:200;
+  left:50%;
+  bottom:22px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  background:var(--dark);
+  color:white;
+  padding:12px 17px;
+  font-size:10px;
+  transition:.25s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* корзина */
+.cart{
+  position:fixed;
+  z-index:110;
+  right:-430px;
+  top:0;
+  height:100%;
+  width:min(430px,100%);
+  background:var(--paper);
+  box-shadow:-15px 0 50px rgba(0,0,0,.15);
+  transition:.35s;
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+}
+.cart.open{right:0}
+.cart-head{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:16px}
+.cart-head h2{margin:0;font-family:"Cormorant Garamond",serif;font-size:34px;font-weight:400}
+.cart-list{overflow:auto;flex:1;padding:14px 0}
+.cart-row{display:grid;grid-template-columns:75px 1fr auto;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart-row img{width:75px;height:90px;object-fit:cover}
+.cart-row strong{font-family:"Cormorant Garamond",serif;font-size:19px;font-weight:500}
+.cart-row small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
+.cart-actions{display:flex;gap:5px;margin-top:10px}
+.cart-actions button{width:24px;height:24px;border:1px solid var(--line);background:none}
+.cart-remove{border:0!important;color:#9a4a42!important;width:auto!important}
+.cart-total{border-top:1px solid var(--line);padding-top:16px}
+.total{display:flex;justify-content:space-between;margin-bottom:13px}
+
+/* мобильная адаптация */
+@media(max-width:900px){
+  .real-nav{display:none}
+  .header-phone{display:none}
+  .real-header-inner{height:68px}
+  .featured{padding:0 25px}
+  .featured-grid{height:480px}
+  .main-nav{top:70px;width:calc(100% - 50px)}
+  .nav{display:none}
+  .phone{display:none}
+  .products{grid-template-columns:repeat(2,1fr)}
+  .catalog{padding-left:25px;padding-right:25px}
+  .project{grid-template-columns:1fr}
+  .project-image{min-height:420px}
+  footer{padding-left:25px;padding-right:25px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .topbar-inner{width:calc(100% - 24px);font-size:7px}
+  .topbar-inner span:last-child{display:none}
+  .real-header-inner{width:calc(100% - 24px)}
+  .real-logo{font-size:23px}
+  .instagram{padding-top:16px}
+  .instagram-title{font-size:29px}
+  .featured{padding:0}
+  .featured-grid{height:auto;grid-template-columns:1fr}
+  .feature{height:360px}
+  .main-nav{top:61px;width:calc(100% - 28px)}
+  .logo{font-size:18px}
+  .nav-right{gap:10px}
+  .intro{padding:62px 18px 70px}
+  .intro h1{font-size:45px}
+  .intro-links{gap:20px}
+  .catalog{padding:70px 14px}
+  .section-head{display:block}
+  .section-head p{margin-top:17px}
+  .section-head h2{font-size:47px}
+  .products{gap:8px}
+  .product-details{padding:11px}
+  .product h3{font-size:21px}
+  .project-copy{padding:65px 25px}
+  .project h2{font-size:53px}
+  .project-image{min-height:340px}
+  footer{padding:50px 18px 20px}
+  .footer-grid{grid-template-columns:1fr}
+  .modal{padding:28px 18px}
+}
+</style>
+
+<style>
+/* =========================================================
+   Адаптация ширины под устройство
+   Сайт всегда занимает всю ширину экрана.
+   Внутренние отступы плавно уменьшаются на узких экранах.
+   ========================================================= */
+
+html,
+body {
+  width: 100%;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--cream);
+  overflow-x: hidden;
+}
+
+.site {
+  width: 100%;
+  max-width: none;
+  min-width: 100%;
+  margin: 0;
+}
+
+/* Контентные контейнеры масштабируются от ширины экрана */
+.topbar-inner,
+.real-header-inner {
+  width: calc(100% - clamp(24px, 5vw, 80px));
+  max-width: none;
+}
+
+.featured {
+  padding-left: clamp(0px, 3.1vw, 60px);
+  padding-right: clamp(0px, 3.1vw, 60px);
+}
+
+.featured-grid {
+  width: 100%;
+}
+
+.catalog {
+  padding-left: clamp(18px, 5vw, 80px);
+  padding-right: clamp(18px, 5vw, 80px);
+}
+
+.project {
+  width: 100%;
+}
+
+footer {
+  padding-left: clamp(18px, 5vw, 80px);
+  padding-right: clamp(18px, 5vw, 80px);
+}
+
+/* Очень широкие мониторы */
+@media (min-width: 1600px) {
+  .topbar-inner,
+  .real-header-inner {
+    width: calc(100% - 80px);
+  }
+
+  .featured-grid {
+    height: min(570px, 38vw);
+  }
+}
+
+/* Планшеты */
+@media (max-width: 900px) {
+  .topbar-inner,
+  .real-header-inner {
+    width: calc(100% - 40px);
+  }
+
+  .featured {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 560px) {
+  .topbar-inner,
+  .real-header-inner {
+    width: calc(100% - 24px);
+  }
+
+  .featured {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+</style>
+
+
+<style>
+/* Убираем старую навигацию, которая дублирует верхнюю шапку и съезжает на изображения */
+.main-nav{display:none !important;}
+
+/* Дополнительные визуальные блоки главной страницы */
+.info-section{
+  background:var(--paper);
+  padding:clamp(70px,7vw,125px) clamp(28px,5vw,80px);
+  position:relative;
+  overflow:hidden;
+}
+.production{
+  background:
+    radial-gradient(circle at 12% 18%,rgba(179,154,107,.10),transparent 24%),
+    radial-gradient(circle at 92% 76%,rgba(179,154,107,.08),transparent 28%),
+    var(--paper);
+}
+.production::before{
+  content:"01 / 03";
+  position:absolute;
+  top:clamp(36px,4vw,68px);
+  right:clamp(28px,5vw,80px);
+  color:rgba(179,154,107,.55);
+  font-size:9px;
+  letter-spacing:.25em;
+}
+.production::after{
+  content:"";
+  position:absolute;
+  left:clamp(28px,5vw,80px);
+  right:clamp(28px,5vw,80px);
+  top:clamp(35px,4vw,63px);
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(179,154,107,.35),transparent);
+}
+.info-heading{
+  max-width:1100px;
+  margin:0 auto;
+  text-align:center;
+}
+.info-heading .eyebrow{
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  margin-bottom:15px;
+}
+.info-heading h2{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(42px,4.2vw,67px);
+  line-height:.92;
+  font-weight:400;
+}
+.info-copy{
+  max-width:980px;
+  margin:38px auto 0;
+  color:#70695f;
+  font-size:clamp(14px,1.2vw,17px);
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.005em;
+}
+.production-steps{
+  max-width:980px;
+  margin:42px auto 0;
+  padding:24px 0 3px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+}
+.production-step{
+  position:relative;
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:14px;
+  min-height:62px;
+}
+.production-step:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  top:4px;
+  right:-14px;
+  width:1px;
+  height:52px;
+  background:var(--line);
+}
+.production-step span{
+  color:var(--gold);
+  font-family:"Cormorant Garamond",serif;
+  font-size:24px;
+  line-height:1;
+}
+.production-step b{
+  display:block;
+  margin-bottom:5px;
+  color:var(--ink);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.production-step p{
+  margin:0;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.65;
+}
+.info-gallery{
+  width:100%;
+  max-width:1440px;
+  margin:48px auto 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.info-gallery figure{
+  position:relative;
+  margin:0;
+  overflow:hidden;
+  background:#e9e5dc;
+  border:1px solid rgba(179,154,107,.24);
+  border-radius:12px;
+  box-shadow:0 16px 34px rgba(61,52,41,.08);
+}
+.info-gallery figure::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 58%,rgba(39,35,30,.12));
+  pointer-events:none;
+}
+.info-gallery img{
+  display:block;
+  width:100%;
+  aspect-ratio:1.08/1;
+  object-fit:cover;
+  filter:saturate(.78) contrast(.96);
+  transition:transform .8s ease,filter .8s ease;
+}
+.info-gallery figure:hover img{transform:scale(1.035);filter:saturate(.9) contrast(1)}
+.info-gallery figcaption{
+  position:relative;
+  z-index:1;
+  padding:14px 15px 16px;
+  background:rgba(248,246,240,.92);
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.advantages{
+  padding-top:clamp(70px,7vw,115px);
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.advantages::before{
+  content:"ATELIER / CUSTOM MADE";
+  position:absolute;
+  z-index:-1;
+  top:42%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(-7deg);
+  color:rgba(179,154,107,.08);
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(62px,10vw,168px);
+  line-height:.8;
+  letter-spacing:.08em;
+  white-space:nowrap;
+  pointer-events:none;
+}
+.advantages::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:18%;
+  right:-110px;
+  width:clamp(220px,26vw,420px);
+  aspect-ratio:1;
+  border:1px solid rgba(179,154,107,.23);
+  transform:rotate(18deg);
+  pointer-events:none;
+}
+.advantages-layout{
+  max-width:1100px;
+  margin:42px auto 0;
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:80px;
+  align-items:start;
+}
+.advantages-text{
+  color:#70695f;
+  font-size:12px;
+  line-height:1.9;
+  font-weight:400;
+  letter-spacing:.005em;
+}
+.advantages-text strong{
+  color:var(--ink);
+  display:block;
+  margin-bottom:12px;
+  font-size:13px;
+  font-weight:600;
+  line-height:1.55;
+}
+.advantages-list{
+  margin:0;
+  padding-left:21px;
+}
+.advantages-list li{
+  padding:4px 0;
+}
+.advantages-note{
+  border:1px solid var(--line);
+  border-top:3px solid var(--gold);
+  padding:25px 28px 28px;
+  min-height:100%;
+  background:rgba(255,253,248,.58);
+  color:#70695f;
+  font-size:11.5px;
+  line-height:1.9;
+  font-weight:400;
+}
+.advantages-note-label{
+  color:var(--gold);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  margin-bottom:19px;
+}
+.advantages-quote{
+  max-width:430px;
+  color:#2d2925;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(27px,2.25vw,39px);
+  line-height:1.05;
+  font-style:italic;
+  font-weight:400;
+  margin-bottom:23px;
+}
+.advantages-note p{
+  margin:0;
+  max-width:430px;
+}
+.advantages-features{
+  position:relative;
+  z-index:1;
+  max-width:1100px;
+  margin:88px auto 0;
+  padding-top:25px;
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:55px;
+}
+.advantages-feature{
+  display:grid;
+  grid-template-columns:38px 1fr;
+  gap:18px;
+}
+.advantages-feature > span{
+  color:#b19b79;
+  font-family:"Cormorant Garamond",serif;
+  font-size:24px;
+  line-height:1;
+}
+.advantages-feature b{
+  display:block;
+  color:var(--ink);
+  font-size:13px;
+  font-weight:500;
+  margin-bottom:8px;
+}
+.advantages-feature p{
+  margin:0;
+  color:#70695f;
+  font-size:11px;
+  line-height:1.75;
+}
+
+.visual-story{
+  background:var(--cream);
+  padding:clamp(65px,7vw,115px) clamp(28px,5vw,80px);
+}
+.visual-story-inner{
+  max-width:1440px;
+  margin:auto;
+}
+.visual-story-title{
+  text-align:center;
+  margin-bottom:30px;
+}
+.visual-story-title h2{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(43px,4vw,64px);
+  font-weight:400;
+}
+.visual-story-title p{
+  max-width:600px;
+  margin:15px auto 0;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.8;
+}
+.story-main{
+  width:100%;
+  overflow:hidden;
+}
+.story-main img{
+  width:100%;
+  height:min(650px,48vw);
+  min-height:360px;
+  object-fit:cover;
+  display:block;
+}
+.story-caption{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  padding-top:17px;
+  color:var(--muted);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+
+.materials{
+  background:var(--paper);
+}
+.materials-layout{
+  max-width:1440px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:65px;
+  align-items:center;
+}
+.materials-copy h2{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(42px,4vw,62px);
+  font-weight:400;
+  line-height:.95;
+}
+.materials-copy p{
+  margin:24px 0 0;
+  max-width:450px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.9;
+}
+.materials-image{
+  overflow:hidden;
+  border-radius:12px;
+  box-shadow:0 16px 34px rgba(61,52,41,.08);
+}
+.materials-image img{
+  display:block;
+  width:100%;
+  aspect-ratio:1.7/1;
+  object-fit:cover;
+  filter:saturate(.74) contrast(.97);
+  transition:transform .8s ease,filter .8s ease;
+}
+.materials-image:hover img{transform:scale(1.025);filter:saturate(.88) contrast(1)}
+
+.showroom{
+  background:var(--cream);
+}
+.showroom-heading{
+  max-width:1440px;
+  margin:0 auto 38px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:34px;
+}
+.showroom-heading h2{
+  margin:0;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(46px,5vw,76px);
+  line-height:.9;
+  font-weight:400;
+}
+.showroom-heading p{
+  max-width:385px;
+  margin:0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+}
+.showroom-layout{
+  max-width:1440px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.55fr .9fr;
+  gap:65px;
+  align-items:start;
+}
+.showroom-main img{
+  width:100%;
+  height:clamp(420px,42vw,680px);
+  object-fit:cover;
+  display:block;
+  border-radius:12px;
+  filter:saturate(.72) contrast(.97);
+  box-shadow:0 18px 38px rgba(61,52,41,.10);
+}
+.showroom-side{
+  display:grid;
+  gap:22px;
+}
+.showroom-side img{
+  width:100%;
+  aspect-ratio:1.5/1;
+  object-fit:cover;
+  display:block;
+  border-radius:12px;
+  filter:saturate(.72) contrast(.97);
+  box-shadow:0 12px 26px rgba(61,52,41,.08);
+}
+.contact-card{
+  padding-top:20px;
+  border-top:1px solid var(--line);
+}
+.contact-card h3{
+  margin:0 0 17px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:30px;
+  font-weight:400;
+}
+.contact-row{
+  display:grid;
+  grid-template-columns:105px 1fr;
+  gap:12px;
+  padding:9px 0;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+}
+.contact-row b{
+  color:var(--ink);
+  font-weight:400;
+}
+
+@media(max-width:900px){
+  .info-copy{
+    font-size:14px;
+    line-height:1.85;
+  }
+  .advantages-text{
+    font-size:12px;
+  }
+  .advantages-text strong{
+    font-size:13px;
+  }
+  .advantages-note{
+    font-size:11.5px;
+  }
+  .advantages-quote{
+    font-size:30px;
+  }
+  .advantages-features{
+    grid-template-columns:1fr;
+    gap:24px;
+    margin-top:55px;
+  }
+  .production-steps{grid-template-columns:1fr;gap:0}
+  .production-step{padding:14px 0;border-bottom:1px solid var(--line)}
+  .production-step:last-child{border-bottom:0}
+  .production-step:not(:last-child)::after{display:none}
+  .info-gallery{gap:12px}
+  .advantages-layout,
+  .materials-layout,
+  .showroom-layout{grid-template-columns:1fr;gap:35px}
+  .showroom-heading{display:block;margin-bottom:28px}
+  .showroom-heading p{margin-top:18px}
+  .story-main img{height:55vw}
+  .showroom-main img{height:55vw}
+}
+@media(max-width:560px){
+  .info-section{padding-left:18px;padding-right:18px}
+  .info-gallery{grid-template-columns:1fr;gap:25px}
+  .advantages-layout{gap:28px}
+  .story-caption{display:block;line-height:1.7}
+  .materials-layout,.showroom-layout{gap:25px}
+  .contact-row{grid-template-columns:85px 1fr}
+}
+</style>
+
+<style>
+/* Финальная мобильная адаптация */
+html{overflow-x:hidden;scrollbar-gutter:stable}
+body{min-width:0;overflow-x:hidden;-webkit-text-size-adjust:100%}
+.real-header-inner{min-width:0}
+.header-menu{flex:0 0 42px;width:42px;height:42px;padding:9px;border:1px solid var(--line);}
+.real-actions{gap:9px}.header-cart{font-size:8px}
+.mobile-nav{width:100%;}
+.mobile-nav a{min-height:44px;display:flex;align-items:center}
+.feature img,.info-gallery img,.showroom-main img,.showroom-side img,.materials-image img{max-width:100%}
+@media(max-width:900px){
+  .topbar-inner{width:calc(100% - 32px)}.real-header-inner{width:calc(100% - 32px);height:66px;gap:12px}
+  .real-logo{font-size:24px}.real-logo small{font-size:6px}.header-phone{display:none}
+  .instagram{padding:18px 16px 11px}.instagram-title{font-size:30px}
+  .intro{padding:60px 24px 68px}.intro h1{font-size:clamp(46px,10vw,70px);line-height:.88}.intro p{font-size:12px;line-height:1.7}
+  .featured{padding-left:18px;padding-right:18px}.featured-grid{height:auto;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .feature-info{left:16px;right:10px;bottom:18px}.feature-info h3{font-size:22px}.feature-info .type{font-size:13px}
+  .info-section{padding-left:24px;padding-right:24px}.info-heading h2{font-size:clamp(40px,7vw,62px)}.info-copy{font-size:14px}
+  .production-steps{grid-template-columns:1fr;gap:0}.production-step{padding:14px 0;border-bottom:1px solid var(--line)}.production-step:last-child{border-bottom:0}.production-step:not(:last-child)::after{display:none}
+  .info-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.info-gallery figcaption{font-size:8px;padding:12px}
+  .advantages-layout,.materials-layout,.showroom-layout{gap:28px}.advantages-note{padding:22px 20px}.advantages-quote{font-size:30px}
+  .showroom-heading{display:block}.showroom-heading p{margin-top:18px;font-size:12px}
+  .showroom-main img{height:58vw;min-height:300px}.showroom-side{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.showroom-side .contact-card{grid-column:1/-1}
+  .contact-row{grid-template-columns:88px minmax(0,1fr)}
+  .overlay{padding:12px;align-items:flex-end}.modal{width:100%;max-height:92dvh;padding:28px 20px 22px;border-radius:10px 10px 0 0}.modal h2{font-size:36px}.form input,.form textarea{font-size:12px;padding:13px}.form button{min-height:48px}
+  .cart{width:100%;padding:22px max(18px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}.cart-row{grid-template-columns:64px minmax(0,1fr) auto}.cart-row img{width:64px;height:76px}.cart-remove{padding:10px 0}
+}
+@media(max-width:680px){
+  .featured{padding-left:0;padding-right:0}.featured-grid{grid-template-columns:1fr;gap:0}.feature{height:360px}.feature-info h3{font-size:27px}
+  .feature-info{left:22px;bottom:22px}.feature-info button{font-size:9px;padding:8px 0}
+  .intro{padding:58px 18px 64px}.intro h1{font-size:clamp(43px,13vw,60px)}.intro-script{font-size:27px}.intro-links{gap:15px;flex-direction:column;align-items:center}
+  .info-section{padding-left:18px;padding-right:18px}.info-heading h2{font-size:clamp(38px,11vw,55px)}.info-copy{font-size:13px;line-height:1.8}
+  .info-gallery{grid-template-columns:1fr;gap:18px}.info-gallery img{aspect-ratio:1.25/1}.advantages::before{font-size:22vw}.advantages-layout{gap:24px}.advantages-quote{font-size:28px}
+  .showroom-side{grid-template-columns:1fr}.showroom-side .contact-card{grid-column:auto}.showroom-main img{height:72vw;min-height:270px}.showroom-side img{aspect-ratio:1.25/1}
+  footer{padding-left:18px;padding-right:18px}.footer-grid{grid-template-columns:1fr 1fr;gap:26px 16px}
+}
+@media(max-width:420px){
+  .topbar-inner{width:calc(100% - 20px);font-size:7px}.real-header-inner{width:calc(100% - 20px);height:62px}.real-logo{font-size:22px}.header-cart{font-size:7px}.header-cart span{min-width:15px;height:15px}
+  .instagram-title{font-size:27px}.feature{height:320px}.intro h1{font-size:44px}.section-head h2{font-size:43px}.project h2{font-size:48px}.footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="site">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>Бесплатная доставка по России</span>
+      <a href="#modal" data-project-open>Получить расчёт</a>
+      <span>Ежедневно 10:00–20:00</span>
+    </div>
+  </div>
+
+  <header class="real-header" id="realHeader">
+    <div class="real-header-inner">
+      <a class="real-logo" href="#top">Atelier<small>soft furniture</small></a>
+
+      <nav class="real-nav">
+        <div class="nav-dropdown">
+          <button class="nav-trigger">Каталог <span>⌄</span></button>
+          <div class="dropdown-menu">
+            <a href="catalog.html?category=Диваны" data-footer-category="Диваны">Диваны</a>
+            <a href="catalog.html?category=Кресла" data-footer-category="Кресла">Кресла</a>
+            <a href="catalog.html?category=Кровати" data-footer-category="Кровати">Кровати</a>
+            <a href="catalog.html?category=Столы" data-footer-category="Столы">Столы</a>
+          </div>
+        </div>
+        <a href="#modal" data-project-open>Индивидуальный проект</a>
+        <a href="#about">О фабрике</a>
+      </nav>
+
+      <div class="real-actions">
+        <a class="header-phone" href="tel:+79124658646">8 (912) 465-86-46</a>
+        <button class="header-cart" id="headerCart" aria-label="Корзина">
+          Корзина <span id="headerCartCount">0</span>
+        </button>
+        <button class="header-menu" id="headerMenu" aria-label="Меню"><i></i><i></i><i></i></button>
+      </div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="catalog.html">Каталог</a>
+      <a href="#modal" data-project-open>Индивидуальный проект</a>
+      <a href="#about">О фабрике</a>
+      <a href="tel:+79124658646">8 (912) 465-86-46</a>
+    </div>
+  </header>
+
+  <div class="instagram">
+    <div class="instagram-title">Наш Instagram</div>
+    <div class="instagram-handle">@atelier.furniture</div>
+  </div>
+
+  <section class="featured" id="top">
+    <div class="main-nav">
+      <a class="logo" href="#top">Atelier<small>soft furniture</small></a>
+      <nav class="nav">
+        <a href="catalog.html">Каталог</a>
+        <a href="#modal" data-project-open>Отправить проект на расчёт</a>
+        <a href="#about">О фабрике</a>
+      </nav>
+      <div class="nav-right">
+        <span class="phone">8 (912) 465-86-46</span>
+        <button class="menu" id="menuBtn" aria-label="Меню"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+
+    <div class="featured-grid">
+      <article class="feature">
+        <img src="https://mbb.ru/upload/iblock/32f/00898u4a79fr6f8lycwrec2nj1kntn4x.jpg" alt="Диван Vincent">
+        <div class="feature-info">
+          <span class="type">Мягкий диван</span>
+          <h3>VINCENT</h3>
+          <button data-category-link="Диваны">Посмотреть →</button>
+        </div>
+      </article>
+      <article class="feature">
+        <img src="https://mbb.ru/upload/iblock/4aa/rvcmxsx7i5w9ixdezi0mn9as2s7a6h49.jpg" alt="Кресло Aurelia">
+        <div class="feature-info">
+          <span class="type">Мягкое кресло</span>
+          <h3>AURELIA</h3>
+          <button data-category-link="Кресла">Посмотреть →</button>
+        </div>
+      </article>
+      <article class="feature">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=95" alt="Кровать Deo">
+        <div class="feature-info">
+          <span class="type">Мягкая кровать</span>
+          <h3>DEO</h3>
+          <button data-category-link="Кровати">Посмотреть →</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="intro" id="about">
+    <div class="intro-kicker">Современная мягкая мебель</div>
+    <h1>ФАБРИКА<br>МЯГКОЙ МЕБЕЛИ</h1>
+    <div class="intro-script">Atelier design</div>
+    <p>Современные диваны, кровати, кресла с любовью к деталям.<br>
+      От производства и до вашего интерьера — с доставкой по России.</p>
+    <div class="intro-links">
+      <a class="gold-link" href="catalog.html?category=Диваны">Посмотреть модели диванов&nbsp; →</a>
+      <a class="gold-link" href="#modal" data-project-open>Мебель по индивидуальному проекту&nbsp; →</a>
+    </div>
+  </section>
+
+
+  <!-- ПРОИЗВОДСТВО -->
+  <section class="info-section production" id="production">
+    <div class="info-heading">
+      <div class="eyebrow">О нашем производстве</div>
+      <h2>Изготовление элитной мягкой мебели премиум класса на заказ</h2>
+    </div>
+    <div class="info-copy">
+      Производство дизайнерской мягкой мебели начинается с проекта. Фабрика находится в Ижевске: мы уточняем размеры, конфигурацию, высоту посадки и задачи помещения, затем согласуем материалы и запускаем изготовление. Каждую модель можно адаптировать под интерьер: изменить габариты, конфигурацию, подлокотники, опоры, форму подушек и другие детали. Работаем по индивидуальным размерам и внимательно относимся к материалам, пропорциям и качеству исполнения.
+    </div>
+
+    <div class="production-steps" aria-label="Этапы изготовления">
+      <div class="production-step">
+        <span>01</span>
+        <div><b>Замер и идея</b><p>Собираем задачу, размеры и настроение будущего интерьера.</p></div>
+      </div>
+      <div class="production-step">
+        <span>02</span>
+        <div><b>Материалы</b><p>Подбираем ткань, оттенок, наполнение и детали отделки.</p></div>
+      </div>
+      <div class="production-step">
+        <span>03</span>
+        <div><b>Изготовление</b><p>Передаём согласованный проект в работу и проверяем каждый узел.</p></div>
+      </div>
+    </div>
+
+    <div class="info-gallery">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1100&q=95" alt="Кресла и мягкая мебель">
+        <figcaption>Точная работа с формой</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1100&q=95" alt="Диван Bernadette">
+        <figcaption>Материалы и детали</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1100&q=95" alt="Кровать Deo">
+        <figcaption>Мебель под ваш интерьер</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ПРЕИМУЩЕСТВА -->
+  <section class="info-section advantages" id="advantages">
+    <div class="info-heading">
+      <div class="eyebrow">Индивидуальное производство</div>
+      <h2>Преимущества заказа мягкой мебели под ваш размер</h2>
+    </div>
+
+    <div class="advantages-layout">
+      <div class="advantages-text">
+        <strong>Мебель создаётся не просто по каталогу — она подстраивается под ваше пространство.</strong>
+        Вы выбираете материал обивки, размеры, конфигурацию и детали, а мы отвечаем за конструкцию, комфорт и качество исполнения.
+        <br><br>
+        <strong>Что можно настроить:</strong>
+        <ul class="advantages-list">
+          <li>точный размер под нишу, эркер или зонирование;</li>
+          <li>глубину и высоту посадки;</li>
+          <li>ткань или кожу с учётом цвета и износостойкости;</li>
+          <li>форму модулей, подлокотников и спинки;</li>
+          <li>опоры, прострочку и декоративные элементы;</li>
+          <li>комплектацию под конкретную задачу.</li>
+        </ul>
+      </div>
+
+      <div class="advantages-note">
+        <div class="advantages-note-label">Ваше пространство — наша отправная точка</div>
+        <div class="advantages-quote">«Мебель должна не просто занимать место — она должна идеально в него вписываться.»</div>
+        <p>Перед запуском мы фиксируем все параметры проекта и согласуем материалы. Так каждая деталь заранее продумана под ваш интерьер, образ жизни и ощущение комфорта.</p>
+      </div>
+    </div>
+
+    <div class="advantages-features">
+      <div class="advantages-feature">
+        <span>01</span>
+        <div><b>Размер</b><p>Изготавливаем точно по вашим размерам — без компромиссов.</p></div>
+      </div>
+      <div class="advantages-feature">
+        <span>02</span>
+        <div><b>Материалы</b><p>Подбираем фактуру, цвет и отделку под интерьер.</p></div>
+      </div>
+      <div class="advantages-feature">
+        <span>03</span>
+        <div><b>Комфорт</b><p>Настраиваем посадку, глубину и конфигурацию под вас.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- МАТЕРИАЛЫ -->
+  <section class="info-section materials" id="materials">
+    <div class="materials-layout">
+      <div class="materials-copy">
+        <div class="eyebrow">Премиальные материалы</div>
+        <h2>Натуральные ткани<br>и качественная фурнитура</h2>
+        <p>Для обивки подбираем ткани с нужной фактурой, оттенком и характеристиками износостойкости. Материалы и детали согласуются до запуска проекта, чтобы мебель выглядела цельно и сохраняла внешний вид на протяжении долгого времени.</p>
+        <a class="gold-link" href="#modal" data-project-open style="display:inline-block;margin-top:24px">Подобрать материалы →</a>
+      </div>
+      <div class="materials-image">
+        <img src="https://mbb.ru/upload/iblock/4aa/rvcmxsx7i5w9ixdezi0mn9as2s7a6h49.jpg" alt="Кресло Aurelia — фактура обивки">
+      </div>
+    </div>
+  </section>
+
+  <!-- ШОУ-РУМ -->
+  <section class="info-section showroom" id="showroom">
+    <div class="showroom-heading">
+      <div>
+        <div class="eyebrow">Встреча с коллекцией</div>
+        <h2>Наш шоу-рум</h2>
+      </div>
+      <p>Приглашаем увидеть фактуры вживую, протестировать посадку и собрать спокойную комбинацию материалов для вашего интерьера.</p>
+    </div>
+    <div class="showroom-layout">
+      <div class="showroom-main">
+        <img src="https://redsquare-mebel.ru/wp-content/uploads/2019/09/91.jpg" alt="Шоу-рум Atelier">
+      </div>
+
+      <div class="showroom-side">
+        <img src="https://redsquare-mebel.ru/wp-content/uploads/2026/02/img_0470-1.png" alt="Интерьер шоу-рума Atelier">
+
+        <div class="contact-card">
+          <h3>Посетите наш шоу-рум</h3>
+          <div class="contact-row">
+            <b>Адрес</b>
+            <span>г. Ижевск, ул. Маяковского, 2а</span>
+          </div>
+          <div class="contact-row">
+            <b>Телефон</b>
+            <a href="tel:+79124658646">8 (912) 465-86-46</a>
+          </div>
+          <div class="contact-row">
+            <b>Время</b>
+            <span>Ежедневно, 10:00–20:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Atelier</div>
+        <p>Фабрика мягкой мебели<br>в Ижевске для современных интерьеров.</p>
+      </div>
+      <div>
+        <h4>Каталог</h4>
+        <a href="catalog.html?category=Диваны" data-footer-category="Диваны">Диваны</a>
+        <a href="catalog.html?category=Кресла" data-footer-category="Кресла">Кресла</a>
+        <a href="catalog.html?category=Кровати" data-footer-category="Кровати">Кровати</a>
+        <a href="catalog.html?category=Столы" data-footer-category="Столы">Столы</a>
+      </div>
+      <div>
+        <h4>Компания</h4>
+        <a href="#about">О фабрике</a>
+        <a href="#modal" data-project-open>Индивидуальный проект</a>
+        <a href="#top">Instagram</a>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <a href="tel:+79124658646">8 (912) 465-86-46</a>
+        <a href="mailto:hello@atelier-furniture.ru">hello@atelier-furniture.ru</a>
+        <p>Ежедневно, 10:00–20:00</p>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Atelier. Все права защищены.</div>
+  </footer>
+</div>
+
+<div class="overlay" id="modal">
+  <div class="modal">
+    <button class="close" id="closeModal">×</button>
+    <div class="intro-kicker" style="text-align:left">Индивидуальный проект</div>
+    <h2>Рассчитать мебель</h2>
+    <form class="form" id="form">
+      <input required name="name" placeholder="Ваше имя">
+      <input required name="contact" placeholder="Телефон или e-mail">
+      <textarea required name="message" placeholder="Опишите, что вам нужно: модель, размеры, ткань, конфигурация"></textarea>
+      <button type="submit">Отправить заявку</button>
+    </form>
+  </div>
+</div>
+
+<div class="cart" id="cart">
+  <div class="cart-head">
+    <h2>Корзина</h2>
+    <button class="close" id="closeCart">×</button>
+  </div>
+  <div class="cart-list" id="cartList"></div>
+  <div class="cart-total">
+    <div class="total"><span>Итого</span><strong id="total">0 ₽</strong></div>
+    <button id="checkout" style="width:100%;background:var(--dark);color:#fff;border:0;padding:14px;font-size:9px;text-transform:uppercase;letter-spacing:.12em">Оформить заказ</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/*
+  Каталог намеренно собран из одного массива.
+  Следующим этапом этот источник данных можно заменить на Supabase:
+  товары, цены, описания и URL изображений будут приходить из БД/Storage.
+*/
+const PRODUCTS = [
+  {id:1,name:"VINCENT",category:"Диваны",price:189000,image:"https://mbb.ru/upload/iblock/32f/00898u4a79fr6f8lycwrec2nj1kntn4x.jpg",description:"Глубокий мягкий диван с выразительными подлокотниками."},
+  {id:2,name:"VANCOUVER",category:"Диваны",price:214000,image:"https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=1200&q=95",description:"Модульная система с несколькими вариантами конфигурации."},
+  {id:3,name:"BERNADETTE",category:"Диваны",price:239000,image:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=95",description:"Объёмный диван с низкой посадкой и мягкими подушками."},
+  {id:4,name:"AURELIA",category:"Кресла",price:79000,image:"https://mbb.ru/upload/iblock/4aa/rvcmxsx7i5w9ixdezi0mn9as2s7a6h49.jpg",description:"Акцентное кресло с выразительным силуэтом."},
+  {id:5,name:"LUNA",category:"Кресла",price:68000,image:"https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=95",description:"Компактное мягкое кресло для зоны отдыха."},
+  {id:6,name:"DEO",category:"Кровати",price:169000,image:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=95",description:"Кровать с мягким изголовьем и спокойной геометрией."},
+  {id:7,name:"MONO",category:"Кровати",price:152000,image:"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=95",description:"Лаконичная кровать с мягкой рамой."},
+  {id:8,name:"MUSE",category:"Столы",price:92000,image:"https://images.unsplash.com/photo-1532372320572-cda25653a694?auto=format&fit=crop&w=1200&q=95",description:"Журнальный стол с натуральной фактурой."}
+];
+
+let category="Все";
+let cart=JSON.parse(localStorage.getItem("atelier_cart")||"[]");
+
+const money=n=>new Intl.NumberFormat("ru-RU").format(n)+" ₽";
+
+function renderCart(){
+  const list=document.getElementById("cartList");
+  const total=document.getElementById("total");
+  if(!cart.length){
+    list.innerHTML='<div style="padding:40px 5px;text-align:center;color:var(--muted);font-size:11px">Корзина пока пуста</div>';
+    total.textContent=money(0);
+    const headerCount=document.getElementById("headerCartCount");
+    if(headerCount) headerCount.textContent="0";
+    return;
+  }
+  let sum=0;
+  list.innerHTML=cart.map(i=>{
+    const p=PRODUCTS.find(x=>x.id===i.id);
+    sum+=p.price*i.qty;
+    return `<div class="cart-row">
+      <img src="${p.image}" alt="${p.name}">
+      <div>
+        <strong>${p.name}</strong>
+        <small>${money(p.price)}</small>
+        <div class="cart-actions">
+          <button data-minus="${p.id}">−</button><span style="font-size:10px;padding:5px">${i.qty}</span><button data-plus="${p.id}">+</button>
+        </div>
+      </div>
+      <button class="cart-remove" data-remove="${p.id}">Удалить</button>
+    </div>`;
+  }).join("");
+  total.textContent=money(sum);
+  const count=cart.reduce((s,x)=>s+x.qty,0);
+  const headerCount=document.getElementById("headerCartCount");
+  if(headerCount) headerCount.textContent=count;
+}
+
+function add(id){
+  const item=cart.find(x=>x.id===id);
+  if(item)item.qty++;
+  else cart.push({id,qty:1});
+  localStorage.setItem("atelier_cart",JSON.stringify(cart));
+  renderCart();
+  toast("Товар добавлен в корзину");
+}
+
+function toast(text){
+  const t=document.getElementById("toast");
+  t.textContent=text;t.classList.add("show");
+  clearTimeout(window.tt);
+  window.tt=setTimeout(()=>t.classList.remove("show"),2000);
+}
+
+document.addEventListener("click",e=>{
+  const addBtn=e.target.closest("[data-add]");
+  if(addBtn)add(Number(addBtn.dataset.add));
+
+  const plus=e.target.closest("[data-plus]");
+  if(plus){
+    const item=cart.find(x=>x.id===Number(plus.dataset.plus));item.qty++;
+    localStorage.setItem("atelier_cart",JSON.stringify(cart));renderCart();
+  }
+  const minus=e.target.closest("[data-minus]");
+  if(minus){
+    const item=cart.find(x=>x.id===Number(minus.dataset.minus));
+    item.qty--;
+    if(item.qty<=0)cart=cart.filter(x=>x.id!==item.id);
+    localStorage.setItem("atelier_cart",JSON.stringify(cart));renderCart();
+  }
+  const remove=e.target.closest("[data-remove]");
+  if(remove){
+    cart=cart.filter(x=>x.id!==Number(remove.dataset.remove));
+    localStorage.setItem("atelier_cart",JSON.stringify(cart));renderCart();
+  }
+});
+
+const modal=document.getElementById("modal");
+const openProject=()=>{
+  modal.classList.add("open");
+  document.body.style.overflow="hidden";
+};
+const closeProject=()=>{
+  modal.classList.remove("open");
+  document.body.style.overflow="";
+};
+document.querySelectorAll("[data-project-open]").forEach(link=>link.addEventListener("click",e=>{
+  e.preventDefault();
+  openProject();
+}));
+document.getElementById("closeModal").onclick=closeProject;
+modal.addEventListener("click",e=>{if(e.target===modal)closeProject()});
+
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  e.target.reset();
+  closeProject();
+  toast("Заявка отправлена");
+});
+
+const cartBox=document.getElementById("cart");
+document.getElementById("closeCart").onclick=()=>cartBox.classList.remove("open");
+
+document.getElementById("checkout").onclick=()=>{
+  if(!cart.length){toast("Корзина пуста");return}
+  cartBox.classList.remove("open");
+  openProject();
+};
+
+document.getElementById("menuBtn").onclick=()=>{
+  document.querySelector(".nav").style.display="flex";
+  document.querySelector(".nav").style.position="fixed";
+  document.querySelector(".nav").style.inset="70px 18px auto";
+  document.querySelector(".nav").style.background="rgba(39,35,30,.96)";
+  document.querySelector(".nav").style.padding="20px";
+  document.querySelector(".nav").style.flexDirection="column";
+  document.querySelector(".nav").style.zIndex="200";
+  document.querySelector(".nav").style.color="#fff";
+};
+
+document.getElementById("headerCart").onclick=()=>document.getElementById("cart").classList.add("open");
+
+document.getElementById("headerMenu").onclick=()=>{
+  document.getElementById("mobileNav").classList.toggle("open");
+  document.getElementById("headerMenu").classList.toggle("active");
+};
+
+document.querySelectorAll(".mobile-nav a").forEach(a=>a.addEventListener("click",()=>{
+  document.getElementById("mobileNav").classList.remove("open");
+  document.getElementById("headerMenu").classList.remove("active");
+}));
+
+window.addEventListener("scroll",()=>{
+  document.getElementById("realHeader").classList.toggle("shadow",window.scrollY>5);
+});
+
+renderCart();
+if(location.hash==="#modal") openProject();
+</script>
+</body>
+</html>
