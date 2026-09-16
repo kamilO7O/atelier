@@ -24,6 +24,7 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}
 .nav a{transition:color .2s ease}.nav a:hover{color:var(--gold)}
 .cart-btn{border:0;border-bottom:1px solid #bda77c;background:none;padding:5px 0;color:#514c44;font-size:9px;letter-spacing:.09em;text-transform:uppercase}
 .cart-btn span{display:inline-grid;place-items:center;min-width:17px;height:17px;margin-left:5px;border-radius:50%;background:var(--gold);color:white;font-size:8px}
+.header-account{border:0;border-bottom:1px solid var(--gold);background:none;padding:5px 0;color:#514c44;font-size:9px;letter-spacing:.09em;text-transform:uppercase}
 .catalog{width:min(1440px,100%);margin:auto;padding:clamp(65px,7vw,110px) clamp(18px,5vw,80px) 100px;background:var(--paper)}
 .catalog-intro{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:36px}
 .eyebrow{margin-bottom:13px;color:var(--gold);font-size:9px;letter-spacing:.24em;text-transform:uppercase}
@@ -118,5 +119,6 @@ mobileNav.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>
 document.querySelectorAll("[data-project-open]").forEach(link=>link.addEventListener("click",e=>{e.preventDefault();window.location.href="index.html#modal"}));
 renderFilters();renderProducts();renderCart();
 </script>
+<script src="auth.js"></script>
 </body>
 </html>

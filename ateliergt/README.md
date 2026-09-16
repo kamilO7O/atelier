@@ -7,8 +7,20 @@
 - Frontend: HTML, CSS, JavaScript
 - Backend: Node.js + Express
 - Database: PostgreSQL (схема подготовлена, подключение можно добавить следующим этапом)
-- Authentication: JWT + HttpOnly Cookies (точка интеграции предусмотрена)
-- Passwords: bcrypt (для серверной авторизации)
+- Authentication: server sessions + HttpOnly Cookies
+- Passwords: crypto.scrypt (встроенная защита Node.js)
+
+Авторизация уже подключена: регистрация и вход доступны через кнопку «Войти» в шапке. Сервер сохраняет пользователей в `server/data/users.json`, пароли хешируются встроенным `crypto.scrypt`, а сессия хранится в HttpOnly-cookie. Для рабочего продакшена перенесите пользователей в PostgreSQL и подключите HTTPS.
+
+Для отправки писем через Resend задайте переменные окружения перед запуском:
+
+```text
+RESEND_API_KEY=re_...
+MAIL_FROM=Atelier <hello@ваш-домен.ru>
+APP_URL=https://ваш-домен.ru
+```
+
+Без `RESEND_API_KEY` сервер не отправляет письмо, а выводит ссылку подтверждения в консоль для локальной проверки.
 
 ## Запуск
 
@@ -45,6 +57,7 @@ atelier-project/
 ├── server/       — Express-сервер и API-точки
 │   ├── package.json
 │   └── server.js
+│   └── data/users.json — локальное хранилище пользователей (создаётся автоматически)
 ├── database/     — SQL-схема PostgreSQL
 │   └── schema.sql
 ├── uploads/      — пользовательские изображения и файлы
