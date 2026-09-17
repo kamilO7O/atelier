@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atelier — фабрика мягкой мебели</title>
+<link rel="stylesheet" href="/css/home.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/site-ui.css">
+</head>
+<body>
+<div class="site">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>Бесплатная доставка по России</span>
+      <a href="#modal" data-project-open>Получить расчёт</a>
+      <span>Ежедневно 10:00–20:00</span>
+    </div>
+  </div>
+
+  <header class="real-header" id="realHeader">
+    <div class="real-header-inner">
+      <a class="real-logo" href="#top">Atelier<small>soft furniture</small></a>
+
+      <nav class="real-nav">
+        <div class="nav-dropdown">
+          <button class="nav-trigger">Каталог <span>⌄</span></button>
+          <div class="dropdown-menu">
+            <a href="/catalog?category=Диваны" data-footer-category="Диваны">Диваны</a>
+            <a href="/catalog?category=Кресла" data-footer-category="Кресла">Кресла</a>
+            <a href="/catalog?category=Кровати" data-footer-category="Кровати">Кровати</a>
+            <a href="/catalog?category=Столы" data-footer-category="Столы">Столы</a>
+          </div>
+        </div>
+        <a href="#modal" data-project-open>Индивидуальный проект</a>
+        <a href="#about">О фабрике</a>
+      </nav>
+
+      <div class="real-actions">
+        <a class="header-phone" href="tel:+79124658646">8 (912) 465-86-46</a>
+        <button class="header-account" id="accountButton" type="button">Войти</button>
+        <button class="header-cart" id="headerCart" aria-label="Корзина">
+          Корзина <span id="headerCartCount">0</span>
+        </button>
+        <button class="header-menu" id="headerMenu" aria-label="Меню"><i></i><i></i><i></i></button>
+      </div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="/catalog">Каталог</a>
+      <a href="#modal" data-project-open>Индивидуальный проект</a>
+      <a href="#about">О фабрике</a>
+      <a href="tel:+79124658646">8 (912) 465-86-46</a>
+    </div>
+  </header>
+
+  <div class="instagram">
+    <div class="instagram-title">Наш Instagram</div>
+    <div class="instagram-handle">@atelier.furniture</div>
+  </div>
+
+  <section class="featured" id="top">
+    <div class="main-nav">
+      <a class="logo" href="#top">Atelier<small>soft furniture</small></a>
+      <nav class="nav">
+        <a href="/catalog">Каталог</a>
+        <a href="#modal" data-project-open>Отправить проект на расчёт</a>
+        <a href="#about">О фабрике</a>
+      </nav>
+      <div class="nav-right">
+        <span class="phone">8 (912) 465-86-46</span>
+        <button class="menu" id="menuBtn" aria-label="Меню"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+
+    <div class="featured-grid">
+      <article class="feature">
+        <img src="https://mbb.ru/upload/iblock/32f/00898u4a79fr6f8lycwrec2nj1kntn4x.jpg" alt="Диван Vincent">
+        <div class="feature-info">
+          <span class="type">Мягкий диван</span>
+          <h3>VINCENT</h3>
+          <button data-category-link="Диваны">Посмотреть →</button>
+        </div>
+      </article>
+      <article class="feature">
+        <img src="https://mbb.ru/upload/iblock/4aa/rvcmxsx7i5w9ixdezi0mn9as2s7a6h49.jpg" alt="Кресло Aurelia">
+        <div class="feature-info">
+          <span class="type">Мягкое кресло</span>
+          <h3>AURELIA</h3>
+          <button data-category-link="Кресла">Посмотреть →</button>
+        </div>
+      </article>
+      <article class="feature">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=95" alt="Кровать Deo">
+        <div class="feature-info">
+          <span class="type">Мягкая кровать</span>
+          <h3>DEO</h3>
+          <button data-category-link="Кровати">Посмотреть →</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="intro" id="about">
+    <div class="intro-kicker">Современная мягкая мебель</div>
+    <h1>ФАБРИКА<br>МЯГКОЙ МЕБЕЛИ</h1>
+    <div class="intro-script">Atelier design</div>
+    <p>Современные диваны, кровати, кресла с любовью к деталям.<br>
+      От производства и до вашего интерьера — с доставкой по России.</p>
+    <div class="intro-links">
+      <a class="gold-link" href="/catalog?category=Диваны">Посмотреть модели диванов&nbsp; →</a>
+      <a class="gold-link" href="#modal" data-project-open>Мебель по индивидуальному проекту&nbsp; →</a>
+    </div>
+  </section>
+
+
+  <!-- ПРОИЗВОДСТВО -->
+  <section class="info-section production" id="production">
+    <div class="info-heading">
+      <div class="eyebrow">О нашем производстве</div>
+      <h2>Изготовление элитной мягкой мебели премиум класса на заказ</h2>
+    </div>
+    <div class="info-copy">
+      Производство дизайнерской мягкой мебели начинается с проекта. Фабрика находится в Ижевске: мы уточняем размеры, конфигурацию, высоту посадки и задачи помещения, затем согласуем материалы и запускаем изготовление. Каждую модель можно адаптировать под интерьер: изменить габариты, конфигурацию, подлокотники, опоры, форму подушек и другие детали. Работаем по индивидуальным размерам и внимательно относимся к материалам, пропорциям и качеству исполнения.
+    </div>
+
+    <div class="production-steps" aria-label="Этапы изготовления">
+      <div class="production-step">
+        <span>01</span>
+        <div><b>Замер и идея</b><p>Собираем задачу, размеры и настроение будущего интерьера.</p></div>
+      </div>
+      <div class="production-step">
+        <span>02</span>
+        <div><b>Материалы</b><p>Подбираем ткань, оттенок, наполнение и детали отделки.</p></div>
+      </div>
+      <div class="production-step">
+        <span>03</span>
+        <div><b>Изготовление</b><p>Передаём согласованный проект в работу и проверяем каждый узел.</p></div>
+      </div>
+    </div>
+
+    <div class="info-gallery">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1100&q=95" alt="Кресла и мягкая мебель">
+        <figcaption>Точная работа с формой</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1100&q=95" alt="Диван Bernadette">
+        <figcaption>Материалы и детали</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1100&q=95" alt="Кровать Deo">
+        <figcaption>Мебель под ваш интерьер</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ПРЕИМУЩЕСТВА -->
+  <section class="info-section advantages" id="advantages">
+    <div class="info-heading">
+      <div class="eyebrow">Индивидуальное производство</div>
+      <h2>Преимущества заказа мягкой мебели под ваш размер</h2>
+    </div>
+
+    <div class="advantages-layout">
+      <div class="advantages-text">
+        <strong>Мебель создаётся не просто по каталогу — она подстраивается под ваше пространство.</strong>
+        Вы выбираете материал обивки, размеры, конфигурацию и детали, а мы отвечаем за конструкцию, комфорт и качество исполнения.
+        <br><br>
+        <strong>Что можно настроить:</strong>
+        <ul class="advantages-list">
+          <li>точный размер под нишу, эркер или зонирование;</li>
+          <li>глубину и высоту посадки;</li>
+          <li>ткань или кожу с учётом цвета и износостойкости;</li>
+          <li>форму модулей, подлокотников и спинки;</li>
+          <li>опоры, прострочку и декоративные элементы;</li>
+          <li>комплектацию под конкретную задачу.</li>
+        </ul>
+      </div>
+
+      <div class="advantages-note">
+        <div class="advantages-note-label">Ваше пространство — наша отправная точка</div>
+        <div class="advantages-quote">«Мебель должна не просто занимать место — она должна идеально в него вписываться.»</div>
+        <p>Перед запуском мы фиксируем все параметры проекта и согласуем материалы. Так каждая деталь заранее продумана под ваш интерьер, образ жизни и ощущение комфорта.</p>
+      </div>
+    </div>
+
+    <div class="advantages-features">
+      <div class="advantages-feature">
+        <span>01</span>
+        <div><b>Размер</b><p>Изготавливаем точно по вашим размерам — без компромиссов.</p></div>
+      </div>
+      <div class="advantages-feature">
+        <span>02</span>
+        <div><b>Материалы</b><p>Подбираем фактуру, цвет и отделку под интерьер.</p></div>
+      </div>
+      <div class="advantages-feature">
+        <span>03</span>
+        <div><b>Комфорт</b><p>Настраиваем посадку, глубину и конфигурацию под вас.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- МАТЕРИАЛЫ -->
+  <section class="info-section materials" id="materials">
+    <div class="materials-layout">
+      <div class="materials-copy">
+        <div class="eyebrow">Премиальные материалы</div>
+        <h2>Натуральные ткани<br>и качественная фурнитура</h2>
+        <p>Для обивки подбираем ткани с нужной фактурой, оттенком и характеристиками износостойкости. Материалы и детали согласуются до запуска проекта, чтобы мебель выглядела цельно и сохраняла внешний вид на протяжении долгого времени.</p>
+        <a class="gold-link" href="#modal" data-project-open style="display:inline-block;margin-top:24px">Подобрать материалы →</a>
+      </div>
+      <div class="materials-image">
+        <img src="https://mbb.ru/upload/iblock/4aa/rvcmxsx7i5w9ixdezi0mn9as2s7a6h49.jpg" alt="Кресло Aurelia — фактура обивки">
+      </div>
+    </div>
+  </section>
+
+  <!-- ШОУ-РУМ -->
+  <section class="info-section showroom" id="showroom">
+    <div class="showroom-heading">
+      <div>
+        <div class="eyebrow">Встреча с коллекцией</div>
+        <h2>Наш шоу-рум</h2>
+      </div>
+      <p>Приглашаем увидеть фактуры вживую, протестировать посадку и собрать спокойную комбинацию материалов для вашего интерьера.</p>
+    </div>
+    <div class="showroom-layout">
+      <div class="showroom-main">
+        <img src="https://redsquare-mebel.ru/wp-content/uploads/2019/09/91.jpg" alt="Шоу-рум Atelier">
+      </div>
+
+      <div class="showroom-side">
+        <img src="https://redsquare-mebel.ru/wp-content/uploads/2026/02/img_0470-1.png" alt="Интерьер шоу-рума Atelier">
+
+        <div class="contact-card">
+          <h3>Посетите наш шоу-рум</h3>
+          <div class="contact-row">
+            <b>Адрес</b>
+            <span>г. Ижевск, ул. Маяковского, 2а</span>
+          </div>
+          <div class="contact-row">
+            <b>Телефон</b>
+            <a href="tel:+79124658646">8 (912) 465-86-46</a>
+          </div>
+          <div class="contact-row">
+            <b>Время</b>
+            <span>Ежедневно, 10:00–20:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Atelier</div>
+        <p>Фабрика мягкой мебели<br>в Ижевске для современных интерьеров.</p>
+      </div>
+      <div>
+        <h4>Каталог</h4>
+        <a href="/catalog?category=Диваны" data-footer-category="Диваны">Диваны</a>
+        <a href="/catalog?category=Кресла" data-footer-category="Кресла">Кресла</a>
+        <a href="/catalog?category=Кровати" data-footer-category="Кровати">Кровати</a>
+        <a href="/catalog?category=Столы" data-footer-category="Столы">Столы</a>
+      </div>
+      <div>
+        <h4>Компания</h4>
+        <a href="#about">О фабрике</a>
+        <a href="#modal" data-project-open>Индивидуальный проект</a>
+        <a href="#top">Instagram</a>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <a href="tel:+79124658646">8 (912) 465-86-46</a>
+        <a href="mailto:hello@atelier-furniture.ru">hello@atelier-furniture.ru</a>
+        <p>Ежедневно, 10:00–20:00</p>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Atelier. Все права защищены.<div class="footer-legal"><a href="/privacy">Конфиденциальность</a><span class="dot">·</span><a href="/cookies">Cookie</a><span class="dot">·</span><button type="button" data-cookie-settings>Настроить cookie</button></div></div>
+  </footer>
+</div>
+
+<div class="overlay" id="modal">
+  <div class="modal">
+    <button class="close" id="closeModal">×</button>
+    <div class="intro-kicker" style="text-align:left">Индивидуальный проект</div>
+    <h2>Рассчитать мебель</h2>
+    <form class="form" id="form">
+      <input required name="name" placeholder="Ваше имя">
+      <input required name="contact" placeholder="Телефон или e-mail">
+      <textarea required name="message" placeholder="Опишите, что вам нужно: модель, размеры, ткань, конфигурация"></textarea>
+      <button type="submit">Отправить заявку</button>
+    </form>
+  </div>
+</div>
+
+<div class="overlay" id="authModal" aria-hidden="true">
+  <div class="modal auth-modal">
+    <button class="close" id="closeAuth" aria-label="Закрыть">×</button>
+    <div class="intro-kicker" style="text-align:left">Личный кабинет</div>
+    <h2 id="authTitle">Войти</h2>
+    <form class="form" id="authForm">
+      <input id="authName" name="name" placeholder="Ваше имя" autocomplete="name" hidden>
+      <input required id="authEmail" type="email" name="email" placeholder="E-mail" autocomplete="email">
+      <input required id="authPassword" type="password" name="password" placeholder="Пароль (минимум 8 символов)" minlength="8" autocomplete="current-password">
+      <button type="submit" id="authSubmit">Войти</button>
+    </form>
+    <button class="auth-switch" id="authSwitch" type="button">Нет аккаунта? Зарегистрироваться</button>
+    <p class="auth-message" id="authMessage" role="status"></p>
+    <div class="account-view" id="accountView" hidden>
+      <p>Вы вошли как <strong id="accountName"></strong></p>
+      <p id="accountEmail"></p>
+      <button class="form-button" id="logoutButton" type="button">Выйти из аккаунта</button>
+    </div>
+  </div>
+</div>
+
+<div class="cart" id="cart">
+  <div class="cart-head">
+    <h2>Корзина</h2>
+    <button class="close" id="closeCart">×</button>
+  </div>
+  <div class="cart-list" id="cartList"></div>
+  <div class="cart-total">
+    <div class="total"><span>Итого</span><strong id="total">0 ₽</strong></div>
+    <button id="checkout" style="width:100%;background:var(--dark);color:#fff;border:0;padding:14px;font-size:9px;text-transform:uppercase;letter-spacing:.12em">Оформить заказ</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/home.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/site-ui.js"></script>
+</body>
+</html>

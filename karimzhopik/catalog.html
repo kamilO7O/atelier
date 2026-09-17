@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Каталог — Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/catalog.css">
+<link rel="stylesheet" href="/css/site-ui.css">
+</head>
+<body>
+<div class="topbar"><div class="topbar-inner"><span>Фабрика мягкой мебели в Ижевске</span><a href="/#modal" data-project-open>Получить расчёт</a><span>Ежедневно 10:00–20:00</span></div></div>
+<header class="header"><div class="header-inner"><a class="logo" href="/">Atelier<small>soft furniture</small></a><nav class="nav"><a href="/">Главная</a><a href="/#showroom">Шоу-рум</a><a href="/#modal" data-project-open>Индивидуальный проект</a></nav><div class="header-actions"><button class="cart-btn" id="cartButton">Корзина <span id="cartCount">0</span></button><button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false"><i></i><i></i><i></i></button></div></div><nav class="mobile-nav" id="mobileNav"><a href="/">Главная</a><a href="/#showroom">Шоу-рум</a><a href="/#modal" data-project-open>Индивидуальный проект</a></nav></header>
+<main class="catalog"><div class="catalog-intro"><div><div class="eyebrow">Atelier / коллекция 2026</div><h1>Каталог</h1></div><p>Собрали коллекцию мягкой мебели и столов для современных интерьеров. Каждую модель можно адаптировать под ваши размеры, материалы и ритм пространства.</p></div><div class="filters" id="filters"></div><section class="products" id="products" aria-live="polite"></section></main><footer class="legal-footer"><a href="/privacy">Конфиденциальность</a><span class="dot">·</span><a href="/cookies">Cookie</a><span class="dot">·</span><button type="button" data-cookie-settings>Настроить cookie</button></footer>
+<aside class="cart-panel" id="cartPanel" aria-hidden="true"><div class="cart-head"><h2>Корзина</h2><button class="close" id="closeCart" aria-label="Закрыть">×</button></div><div class="cart-list" id="cartList"></div><div class="cart-total"><div class="cart-total-line"><span>Итого</span><strong id="cartTotal">0 ₽</strong></div><div class="cart-note">После отправки заявки менеджер уточнит конфигурацию и подготовит точный расчёт.</div></div></aside><div class="toast" id="toast"></div>
+<script src="/js/catalog.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/site-ui.js"></script>
+</body>
+</html>
+

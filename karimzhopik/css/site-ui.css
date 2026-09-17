@@ -1,0 +1,34 @@
+/* Shared Atelier UI layer */
+:root{--ui-cream:#f3f0e8;--ui-paper:#f8f5ee;--ui-ink:#29251f;--ui-muted:#777168;--ui-gold:#ad9365;--ui-line:rgba(84,73,57,.16);--ui-shadow:0 22px 70px rgba(48,40,30,.12)}
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:atelier-out .24s ease both}
+::view-transition-new(root){animation:atelier-in .48s cubic-bezier(.22,.61,.36,1) both}
+@keyframes atelier-out{to{opacity:0;transform:translateY(-6px)}}
+@keyframes atelier-in{from{opacity:0;transform:translateY(10px)}}
+html{background:#e9e5dc}
+body{background:radial-gradient(circle at 12% 8%,rgba(255,255,255,.82),transparent 32rem),linear-gradient(145deg,#ece8df 0%,#e4ded3 100%) fixed!important;min-height:100vh}
+.site,.catalog{background:linear-gradient(180deg,#f7f4ed 0%,#f1ede4 100%)!important}
+a,button,[role="button"]{-webkit-tap-highlight-color:transparent}
+button,a{transition:color .28s ease,background-color .28s ease,border-color .28s ease,opacity .28s ease,transform .28s ease,box-shadow .28s ease}
+button:active,[role="button"]:active{transform:scale(.975)}
+img{transition:filter .6s ease,transform .8s cubic-bezier(.22,.61,.36,1)}
+.header-menu,.menu-toggle{position:relative!important;overflow:hidden}
+.header-menu.active i,.menu-toggle.active i{position:absolute!important;left:50%!important;top:50%!important;width:20px!important;height:1px!important;margin:0!important;transform-origin:center!important}
+.header-menu.active i:nth-child(1),.menu-toggle.active i:nth-child(1){transform:translate(-50%,-50%) rotate(45deg)!important}
+.header-menu.active i:nth-child(2),.menu-toggle.active i:nth-child(2){opacity:0!important;transform:translate(-50%,-50%) scaleX(0)!important}
+.header-menu.active i:nth-child(3),.menu-toggle.active i:nth-child(3){transform:translate(-50%,-50%) rotate(-45deg)!important}
+.reveal-ready .atelier-reveal{opacity:0;transform:translate3d(0,34px,0);filter:blur(3px);transition:opacity .8s ease,transform .9s cubic-bezier(.22,.61,.36,1),filter .8s ease}
+.reveal-ready .atelier-reveal.is-visible{opacity:1;transform:none;filter:none}
+.reveal-ready .atelier-reveal:nth-child(2n){transition-delay:.05s}
+.page-transition{position:fixed;inset:0;z-index:10000;pointer-events:none;background:#eee9df;opacity:0;transition:opacity .32s ease}.page-transition.is-leaving{opacity:1}
+.legal-footer{padding:22px clamp(18px,5vw,80px) 32px;text-align:center;border-top:1px solid var(--ui-line);background:rgba(248,245,238,.72);color:var(--ui-muted);font:9px/1.7 Manrope,Arial,sans-serif;letter-spacing:.04em}
+.legal-footer a,.footer-legal a,.footer-legal button{color:var(--ui-muted);text-decoration:none;border:0;background:none;padding:0;font:inherit;cursor:pointer}.legal-footer a:hover,.footer-legal a:hover,.footer-legal button:hover{color:var(--ui-gold)}
+.legal-footer .dot,.footer-legal .dot{margin:0 8px;color:rgba(119,113,104,.55)}.footer-legal{margin-top:9px;color:var(--ui-muted);font-size:8px}
+.cookie-banner{position:fixed;z-index:9000;left:18px;right:18px;bottom:18px;width:min(680px,calc(100% - 36px));margin:auto;padding:18px 20px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;color:#eee9df;background:rgba(43,39,33,.96);border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 60px rgba(29,24,19,.25);backdrop-filter:blur(18px);opacity:0;transform:translateY(20px);visibility:hidden;transition:opacity .35s ease,transform .45s cubic-bezier(.22,.61,.36,1),visibility 0s linear .45s}
+.cookie-banner.is-open{opacity:1;transform:none;visibility:visible;transition-delay:0s}.cookie-copy{font:10px/1.65 Manrope,Arial,sans-serif;color:#d8d2c7}.cookie-copy strong{display:block;margin-bottom:3px;color:#fff;font:500 17px/1.1 "Cormorant Garamond",serif}.cookie-copy a{color:#d7bd8d;border-bottom:1px solid rgba(215,189,141,.4)}
+.cookie-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.cookie-btn{min-height:38px;padding:9px 13px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:8px;letter-spacing:.09em;text-transform:uppercase}.cookie-btn.primary{background:#d4bb8e;border-color:#d4bb8e;color:#2b2721}.cookie-btn:hover{border-color:#d4bb8e}
+.cookie-dialog-backdrop{position:fixed;inset:0;z-index:9100;display:grid;place-items:center;padding:18px;background:rgba(27,23,18,.55);opacity:0;visibility:hidden;transition:.3s ease}.cookie-dialog-backdrop.is-open{opacity:1;visibility:visible}.cookie-dialog{width:min(540px,100%);padding:30px;background:var(--ui-paper);box-shadow:var(--ui-shadow);transform:translateY(12px);transition:transform .35s ease}.cookie-dialog-backdrop.is-open .cookie-dialog{transform:none}.cookie-dialog h2{margin:0 0 8px;font:400 38px/1 "Cormorant Garamond",serif}.cookie-dialog>p{margin:0 0 21px;color:var(--ui-muted);font:10px/1.7 Manrope,Arial,sans-serif}
+.cookie-option{display:flex;justify-content:space-between;gap:25px;padding:15px 0;border-top:1px solid var(--ui-line);font:10px/1.5 Manrope,Arial,sans-serif}.cookie-option strong{display:block;margin-bottom:3px;font-size:11px}.cookie-option small{color:var(--ui-muted)}.cookie-option input{width:18px;height:18px;accent-color:var(--ui-gold)}.cookie-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}.cookie-dialog .cookie-btn{color:var(--ui-ink);border-color:var(--ui-line)}.cookie-dialog .cookie-btn.primary{color:#fff;background:var(--ui-ink);border-color:var(--ui-ink)}
+.policy-page{width:min(920px,calc(100% - 32px));margin:32px auto;padding:clamp(28px,6vw,72px);background:rgba(248,245,238,.94);box-shadow:var(--ui-shadow)}.policy-logo{font:400 30px/1 "Cormorant Garamond",serif}.policy-logo small{display:block;margin-top:7px;color:var(--ui-gold);font:7px Manrope,sans-serif;letter-spacing:.22em;text-transform:uppercase}.policy-page h1{margin:70px 0 18px;font:400 clamp(44px,8vw,78px)/.9 "Cormorant Garamond",serif}.policy-page h2{margin:38px 0 12px;font:400 29px/1 "Cormorant Garamond",serif}.policy-page p,.policy-page li{color:var(--ui-muted);font:11px/1.85 Manrope,Arial,sans-serif}.policy-page a{color:var(--ui-gold)}.policy-back{display:inline-block;margin-top:45px;padding-bottom:4px;border-bottom:1px solid var(--ui-gold);font:9px Manrope,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+@media(max-width:620px){.cookie-banner{grid-template-columns:1fr;gap:13px;left:10px;right:10px;bottom:10px;width:calc(100% - 20px);padding:17px}.cookie-actions{justify-content:stretch}.cookie-btn{flex:1}.cookie-dialog{padding:25px 19px}.cookie-dialog h2{font-size:33px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal-ready .atelier-reveal{opacity:1!important;transform:none!important;filter:none!important}}
